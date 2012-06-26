@@ -285,6 +285,9 @@ activeCount = active_count
 def enumerate():
     return _active_threads.values()
 
+def _shutdown():
+    return
+
 ##############################################################################
 # Not Implemented
 ##############################################################################

@@ -451,13 +451,12 @@ cdef public class queue_poller [ object queue_poller_object, type queue_poller_t
         cdef kevent_target kt
         cdef coro co
         cdef kevent_key kk
-
         kk = kevent_key (EVFILT_READ, fd)
         if PyDict_Contains(self.event_map, kk):
             kt = self.event_map[kk]
             kt.flags = kt.flags | KTARGET_CLOSED
             del self.event_map[kk]
-            W ('(notify_of_close (%d) [read])\n' % (fd,))
+            #W ('(notify_of_close (%d) [read])\n' % (fd,))
             co = kt.target
             try:
                 co.__interrupt (ClosedError(the_scheduler._current))
@@ -469,7 +468,7 @@ cdef public class queue_poller [ object queue_poller_object, type queue_poller_t
             kt = self.event_map[kk]
             kt.flags = kt.flags | KTARGET_CLOSED
             del self.event_map[kk]
-            W ('(notify_of_close (%d) [write])\n' % (fd,))
+           # W ('(notify_of_close (%d) [write])\n' % (fd,))
             co = kt.target
             try:
                 co.__interrupt (ClosedError(the_scheduler._current))
